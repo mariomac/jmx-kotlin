@@ -1,0 +1,158 @@
+{
+  "name": "com.newrelic.jmx",
+  "data": [
+    {
+      "metrics": [
+        {
+          "key:type": "ThreadPool",
+          "event_type": "TomcatSample",
+          "connectionCount": 1,
+          "key:name": "ajp-nio-8009",
+          "entityName": "jmx-domain:Catalina",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "query": "type=ThreadPool,name=*",
+          "host": "localhost",
+          "maxThreads": 200,
+          "bean": "type=ThreadPool,name=\"ajp-nio-8009\""
+        },
+        {
+          "key:type": "ThreadPool",
+          "event_type": "TomcatSample",
+          "connectionCount": 1,
+          "key:name": "http-nio-8080",
+          "entityName": "jmx-domain:Catalina",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "query": "type=ThreadPool,name=*",
+          "host": "localhost",
+          "maxThreads": 200,
+          "bean": "type=ThreadPool,name=\"http-nio-8080\""
+        },
+        {
+          "key:type": "GlobalRequestProcessor",
+          "maxTime": 0,
+          "requestCount": 0,
+          "displayName": "Catalina",
+          "query": "type=GlobalRequestProcessor,name=*",
+          "bytesSent": 0,
+          "bytesReceived": 0,
+          "event_type": "TomcatSample",
+          "key:name": "http-nio-8080",
+          "entityName": "jmx-domain:Catalina",
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=GlobalRequestProcessor,name=\"http-nio-8080\"",
+          "errorCount": 0
+        },
+        {
+          "key:type": "GlobalRequestProcessor",
+          "maxTime": 0,
+          "requestCount": 0,
+          "displayName": "Catalina",
+          "query": "type=GlobalRequestProcessor,name=*",
+          "bytesSent": 0,
+          "bytesReceived": 0,
+          "event_type": "TomcatSample",
+          "key:name": "ajp-nio-8009",
+          "entityName": "jmx-domain:Catalina",
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=GlobalRequestProcessor,name=\"ajp-nio-8009\"",
+          "errorCount": 0
+        },
+        {
+          "key:type": "Manager",
+          "displayName": "Catalina",
+          "query": "type=Manager,*",
+          "key:host": "localhost",
+          "key:context": "/docs",
+          "event_type": "TomcatSample",
+          "entityName": "jmx-domain:Catalina",
+          "activeSessions": 0,
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=Manager,host=localhost,context=/docs",
+          "sessionCounter": 0,
+          "expiredSessions": 0
+        },
+        {
+          "key:type": "Manager",
+          "displayName": "Catalina",
+          "query": "type=Manager,*",
+          "key:host": "localhost",
+          "key:context": "/examples",
+          "event_type": "TomcatSample",
+          "entityName": "jmx-domain:Catalina",
+          "activeSessions": 0,
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=Manager,host=localhost,context=/examples",
+          "sessionCounter": 0,
+          "expiredSessions": 0
+        },
+        {
+          "key:type": "Manager",
+          "displayName": "Catalina",
+          "query": "type=Manager,*",
+          "key:host": "localhost",
+          "key:context": "/manager",
+          "event_type": "TomcatSample",
+          "entityName": "jmx-domain:Catalina",
+          "activeSessions": 0,
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=Manager,host=localhost,context=/manager",
+          "sessionCounter": 0,
+          "expiredSessions": 0
+        },
+        {
+          "key:type": "Manager",
+          "displayName": "Catalina",
+          "query": "type=Manager,*",
+          "key:host": "localhost",
+          "key:context": "/",
+          "event_type": "TomcatSample",
+          "entityName": "jmx-domain:Catalina",
+          "activeSessions": 0,
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=Manager,host=localhost,context=/",
+          "sessionCounter": 0,
+          "expiredSessions": 0
+        },
+        {
+          "key:type": "Manager",
+          "displayName": "Catalina",
+          "query": "type=Manager,*",
+          "key:host": "localhost",
+          "key:context": "/host-manager",
+          "event_type": "TomcatSample",
+          "entityName": "jmx-domain:Catalina",
+          "activeSessions": 0,
+          "domain": "Catalina",
+          "host": "localhost",
+          "bean": "type=Manager,host=localhost,context=/host-manager",
+          "sessionCounter": 0,
+          "expiredSessions": 0
+        }
+      ],
+      "entity": {
+        "name": "Catalina",
+        "type": "jmx-domain",
+        "id_attributes": [
+          {
+            "Key": "host",
+            "Value": "localhost"
+          },
+          {
+            "Key": "port",
+            "Value": "7199"
+          }
+        ]
+      }
+    }
+  ],
+  "protocol_version": "3",
+  "integration_version": "0.1-kotlin"
+}

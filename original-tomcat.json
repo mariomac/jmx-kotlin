@@ -1,0 +1,160 @@
+{
+  "name": "com.newrelic.jmx",
+  "protocol_version": "3",
+  "integration_version": "2.2.5",
+  "data": [
+    {
+      "entity": {
+        "name": "Catalina",
+        "type": "jmx-domain",
+        "id_attributes": [
+          {
+            "Key": "host",
+            "Value": "localhost"
+          },
+          {
+            "Key": "port",
+            "Value": "7199"
+          }
+        ]
+      },
+      "metrics": [
+        {
+          "bean": "type=ThreadPool,name=\"ajp-nio-8009\"",
+          "connectionCount": 1,
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "host": "localhost",
+          "key:name": "ajp-nio-8009",
+          "key:type": "ThreadPool",
+          "maxThreads": 200,
+          "query": "type=ThreadPool,name=*"
+        },
+        {
+          "bean": "type=ThreadPool,name=\"http-nio-8080\"",
+          "connectionCount": 1,
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "host": "localhost",
+          "key:name": "http-nio-8080",
+          "key:type": "ThreadPool",
+          "maxThreads": 200,
+          "query": "type=ThreadPool,name=*"
+        },
+        {
+          "bean": "type=GlobalRequestProcessor,name=\"http-nio-8080\"",
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "errorCount": 0,
+          "event_type": "TomcatSample",
+          "host": "localhost",
+          "key:name": "http-nio-8080",
+          "key:type": "GlobalRequestProcessor",
+          "maxTime": 0,
+          "query": "type=GlobalRequestProcessor,name=*",
+          "requestCount": 0
+        },
+        {
+          "bean": "type=GlobalRequestProcessor,name=\"ajp-nio-8009\"",
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "errorCount": 0,
+          "event_type": "TomcatSample",
+          "host": "localhost",
+          "key:name": "ajp-nio-8009",
+          "key:type": "GlobalRequestProcessor",
+          "maxTime": 0,
+          "query": "type=GlobalRequestProcessor,name=*",
+          "requestCount": 0
+        },
+        {
+          "activeSessions": 0,
+          "bean": "type=Manager,host=localhost,context=/docs",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "expiredSessions": 0,
+          "host": "localhost",
+          "key:context": "/docs",
+          "key:host": "localhost",
+          "key:type": "Manager",
+          "query": "type=Manager,*",
+          "sessionCounter": 0
+        },
+        {
+          "activeSessions": 0,
+          "bean": "type=Manager,host=localhost,context=/",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "expiredSessions": 0,
+          "host": "localhost",
+          "key:context": "/",
+          "key:host": "localhost",
+          "key:type": "Manager",
+          "query": "type=Manager,*",
+          "sessionCounter": 0
+        },
+        {
+          "activeSessions": 0,
+          "bean": "type=Manager,host=localhost,context=/manager",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "expiredSessions": 0,
+          "host": "localhost",
+          "key:context": "/manager",
+          "key:host": "localhost",
+          "key:type": "Manager",
+          "query": "type=Manager,*",
+          "sessionCounter": 0
+        },
+        {
+          "activeSessions": 0,
+          "bean": "type=Manager,host=localhost,context=/examples",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "expiredSessions": 0,
+          "host": "localhost",
+          "key:context": "/examples",
+          "key:host": "localhost",
+          "key:type": "Manager",
+          "query": "type=Manager,*",
+          "sessionCounter": 0
+        },
+        {
+          "activeSessions": 0,
+          "bean": "type=Manager,host=localhost,context=/host-manager",
+          "displayName": "Catalina",
+          "domain": "Catalina",
+          "entityName": "domain:Catalina",
+          "event_type": "TomcatSample",
+          "expiredSessions": 0,
+          "host": "localhost",
+          "key:context": "/host-manager",
+          "key:host": "localhost",
+          "key:type": "Manager",
+          "query": "type=Manager,*",
+          "sessionCounter": 0
+        }
+      ],
+      "inventory": {},
+      "events": []
+    }
+  ]
+}

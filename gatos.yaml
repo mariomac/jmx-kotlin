@@ -1,0 +1,7 @@
+collect:
+  - domain: test
+    event_type: CatSample
+    beans:
+      - query: type=Cat,name=*
+        attributes:
+          - Name
