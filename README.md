@@ -16,6 +16,6 @@ collect:
                 - Name
 ```
 
-(for a more real example: [tomcat.yml](tomcat.yml)
+(for a more real example: [tomcat.yaml](tomcat.yaml)
 
 Example response: [my-tomcat.json](my-tomcat.json). You can compare it with the original [nri-jmx response](original-tomcat.json)
