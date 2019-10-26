@@ -18,15 +18,14 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.util.HashMap
 import kotlin.system.exitProcess
 
 class InputConfig {
     @Property("JMX_HOST")
-    var host : String = "localhost"
+    var host: String = "localhost"
 
     @Property("JMX_PORT")
-    var port : Int = 7199
+    var port: Int = 7199
 
     @Property("JMX_URL")
     var url: String = "service:jmx:rmi:///jndi/rmi://%s:%s/jmxrmi"
@@ -63,28 +62,31 @@ fun main() = runBlocking {
 
     log.debug("starting fetching")
 
-    val emissionChannel = Channel<JMXResult>()
+    val emitterChannel = Channel<JMXResult>()
 
     // Collect beans and attributes and asynchronously processes them to send them to the
     // emitter channel
     // TODO: use kotlin flows as a potentially cleaner implementation
     val queryJob = async {
         collectFile.collect!! // todo: log exceptions
+                // filters all the invalid domains
                 .filter { it.domain != null && it.beans != null && it.eventType != null } // todo: log message
-                // for each domain
-                .map { dom -> async { dom.beans!!
-                            .map { bean -> JMXQuery(
-                                    domain=dom.domain!!,
-                                    eventType = dom.eventType!!,
-                                    query = bean.query!!,
-                                    host = config.host,
-                                    attributes = bean.attributesMap()) }
-                            .map { async { fetcher.query(it) } }
-                            .awaitAll().flatten()
-                            .map { emissionChannel.send(it.await()) } //
-                }}.awaitAll()
+                // queries all the attributes for each domain, and emits them
+                .map { dom ->
+                    dom.beans!!.map { bean ->
+                        fetcher.query(JMXQuery(domain = dom.domain!!,
+                                eventType = dom.eventType!!,
+                                query = bean.query!!,
+                                host = config.host,
+                                attributes = bean.attributesMap()))
+                    }.forEach { resultChannel ->
+                        for (jmxResult in resultChannel) {
+                            emitterChannel.send(jmxResult)
+                        }
+                    }
+                }
     }
-    queryJob.invokeOnCompletion { emissionChannel.close() }
+    queryJob.invokeOnCompletion { emitterChannel.close() }
 
     // implement timeout
     val timeout = launch {
@@ -92,12 +94,12 @@ fun main() = runBlocking {
         log.warn("queries did not complete after {} seconds." +
                 " Canceling and sending only the received data", config.timeoutSeconds)
         queryJob.cancel("timeout")
-        emissionChannel.close()
+        emitterChannel.close()
     }
 
     log.debug("starting collection")
 
-    StdoutJSONEmitter(emissionChannel, listOf(
+    StdoutJSONEmitter(emitterChannel, listOf(
             IdAttribute("host", config.host),
             IdAttribute("port", config.port.toString())))
 
