@@ -1,3 +1,10 @@
+/*
+ * Fair Source License, version 0.9
+ * Copyright (C) 2019 Mario Macias
+ * Licensor: Mario Macias
+ * Software: JMX metrics fetcher
+ * Use Limitation: 25 users
+ */
 package info.macias.nrjmx
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -5,12 +12,14 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import info.macias.kaconf.ConfiguratorBuilder
 import info.macias.kaconf.Property
 import info.macias.nrjmx.cfg.Collection
-import info.macias.nrjmx.connect.*
+import info.macias.nrjmx.connect.AsyncFetcher
+import info.macias.nrjmx.connect.JMXConnectionFactory
+import info.macias.nrjmx.connect.JMXQuery
+import info.macias.nrjmx.connect.JMXResult
 import info.macias.nrjmx.emit.IdAttribute
 import info.macias.nrjmx.emit.StdoutJSONEmitter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.system.exitProcess

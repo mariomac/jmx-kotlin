@@ -1,3 +1,10 @@
+/*
+ * Fair Source License, version 0.9
+ * Copyright (C) 2019 Mario Macias
+ * Licensor: Mario Macias
+ * Software: JMX metrics fetcher
+ * Use Limitation: 25 users
+ */
 package info.macias.nrjmx.emit
 
 import com.fasterxml.jackson.databind.ObjectMapper

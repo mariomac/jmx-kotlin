@@ -1,3 +1,10 @@
+/*
+ * Fair Source License, version 0.9
+ * Copyright (C) 2019 Mario Macias
+ * Licensor: Mario Macias
+ * Software: JMX metrics fetcher
+ * Use Limitation: 25 users
+ */
 package info.macias.nrjmx.cfg
 
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -21,16 +28,17 @@ class Bean {
         private val attributeName = "attr"
         private val attributeType = "metric_type"
     }
+
     var query: String? = null
     var attributes: List<Any>? = null
 
     // key: name, value: type (rate, gauge, etc...)
-    fun attributesMap() : Map<String,String> {
+    fun attributesMap(): Map<String, String> {
         val map = HashMap<String, String>()
-        for (a in attributes?: emptyList()) {
-            when(a) {
+        for (a in attributes ?: emptyList()) {
+            when (a) {
                 is String -> map[a] = defaultAttributeType
-                is Map<*,*> -> {
+                is Map<*, *> -> {
                     val name = a[attributeName]
                     val type = a[attributeType]
                     if (name == null || type == null) {
