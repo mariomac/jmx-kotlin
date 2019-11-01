@@ -47,11 +47,11 @@ class BeanMetricsDefinition {
     internal val metrics = HashMap<String, Metric>()
 
     fun register(name: String, type: String) {
-        metrics[name] = when (name.toLowerCase()) {
+        metrics[name] = when (type.toLowerCase()) {
             nameRate -> RateMetric()
             nameGauge, nameAttr -> SpotMetric(name)
             nameDelta -> DeltaMetric()
-            else -> throw MetricException("invalid metric type: $type")
+            else -> throw MetricException("invalid metric type: '$type'")
         }
     }
 
