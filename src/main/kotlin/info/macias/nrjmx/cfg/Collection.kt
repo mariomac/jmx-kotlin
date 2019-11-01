@@ -12,10 +12,7 @@ class Collect {
     @JsonProperty("event_type")
     var eventType: String? = null
 
-    // Key: bean query
-    var beans: Map<String, Bean>? = null
-
-
+    var beans: List<Bean>? = null
 }
 
 class Bean {
