@@ -5,12 +5,14 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import info.macias.kaconf.ConfiguratorBuilder
 import info.macias.kaconf.Property
 import info.macias.nrjmx.cfg.Collection
-import info.macias.nrjmx.connect.*
+import info.macias.nrjmx.connect.AsyncFetcher
+import info.macias.nrjmx.connect.JMXConnectionFactory
+import info.macias.nrjmx.connect.JMXQuery
+import info.macias.nrjmx.connect.JMXResult
 import info.macias.nrjmx.emit.IdAttribute
 import info.macias.nrjmx.emit.StdoutJSONEmitter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.system.exitProcess
