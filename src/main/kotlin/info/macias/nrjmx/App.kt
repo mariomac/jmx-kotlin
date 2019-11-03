@@ -18,7 +18,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.util.*
 import javax.management.Attribute
+import kotlin.concurrent.timerTask
 import kotlin.system.exitProcess
 
 class InputConfig {
@@ -34,7 +36,7 @@ class InputConfig {
     @Property("COLLECT_FILES")
     var collectFile: String = "tomcat.yaml"
 
-    var timeoutSeconds: Long = 15
+    var intervalSeconds: Long = 15
 }
 
 private val log = LoggerFactory.getLogger("info.macias.nrjmx")
@@ -63,27 +65,29 @@ class App(private val config: InputConfig) {
         collects.forEach {
             it.beans!!.forEach { bean ->
                 metrics.define(bean.query!!, BeanMetricsDefinition().apply {
-                    bean.attributesMap().forEach(::register)
+                    bean.attributesMap().forEach { name, metric ->
+                        register(name, metric)
+                    }
                 })
             }
         }
 
-        while (true) {
+        Timer("fetch-collect-emit").schedule(timerTask {
             fetchLoop(collects, metrics)
-            Thread.sleep(5000) // todo: do it well
-        }
+        }, 0, config.intervalSeconds * 1000)
     }
 
-    private suspend fun CoroutineScope.fetchLoop(collects: List<Collect>, metrics: Metrics) {
-        log.debug("starting fetching")
+    private fun CoroutineScope.fetchLoop(collects: List<Collect>, metrics: Metrics) = runBlocking {
+        log.debug("starting fetch-collect cycle")
 
         val (jmxResults, timeout) = queryAllDomains(collects)
 
-        log.debug("starting collection")
         val emitterChannel = Channel<JMXResult>()
         async {
             // processing metrics from the results
             for (r in jmxResults) {
+                log.trace("received result: {}", r.attributes)
+                log.trace("{} -> {}", r.query.query, r.bean.objectName.keyPropertyListString)
                 val processed: List<Attribute>
                 metrics.forBean(query = r.query.query,
                         bean = r.bean.objectName.keyPropertyListString).let { processor ->
@@ -129,9 +133,9 @@ class App(private val config: InputConfig) {
 
         // implement timeout
         val timeout = launch {
-            delay(config.timeoutSeconds * 1000)
+            delay(config.intervalSeconds * 1000)
             log.warn("queries did not complete after {} seconds." +
-                    " Canceling and sending only the received data", config.timeoutSeconds)
+                    " Canceling and sending only the received data", config.intervalSeconds)
             queryJob.cancel("timeout")
             results.close()
         }

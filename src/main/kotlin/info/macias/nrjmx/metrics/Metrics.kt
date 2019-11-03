@@ -1,5 +1,7 @@
 package info.macias.nrjmx.metrics
 
+import org.slf4j.LoggerFactory
+
 private const val nameDelta = "delta"
 private const val nameGauge = "gauge"
 private const val nameAttr = "attribute"
@@ -7,6 +9,7 @@ private const val nameRate = "rate"
 
 class MetricException(msg: String) : Exception(msg)
 
+internal val log = LoggerFactory.getLogger("info.macias.nrjmx.metrics")
 
 class Metrics {
     // stores the structures of the metrics for each query type
@@ -47,9 +50,11 @@ class BeanMetricsDefinition {
     internal val metrics = HashMap<String, Metric>()
 
     fun register(name: String, type: String) {
-        metrics[name] = when (type.toLowerCase()) {
+        log.debug("registering bean: name={}, type={}", name, type)
+        val ltype = type.toLowerCase()
+        metrics[name] = when (ltype) {
             nameRate -> RateMetric()
-            nameGauge, nameAttr -> SpotMetric(name)
+            nameGauge, nameAttr -> SpotMetric(ltype)
             nameDelta -> DeltaMetric()
             else -> throw MetricException("invalid metric type: '$type'")
         }
@@ -59,7 +64,7 @@ class BeanMetricsDefinition {
     internal fun instantiate() = BeanMetrics(
             BeanMetricsDefinition().let {
                 metrics.forEach { (name, metric) ->
-                    it.register(name, metric.type)
+                    it.register(name=name, type=metric.type)
                 }
                 it
             })

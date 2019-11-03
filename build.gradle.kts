@@ -24,8 +24,11 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.0")
+
     implementation("com.fasterxml.jackson.core:jackson-databind:2.10.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.0")
+
     implementation("info.macias:kaconf:0.8.6")
 
     compile("org.slf4j:slf4j-api:1.7.28")

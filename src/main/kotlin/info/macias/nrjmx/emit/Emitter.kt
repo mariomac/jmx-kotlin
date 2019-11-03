@@ -1,12 +1,16 @@
 package info.macias.nrjmx.emit
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import info.macias.nrjmx.connect.JMXResult
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
+import org.slf4j.LoggerFactory
+
+internal val log = LoggerFactory.getLogger("info.macias.nrjmx.emit")
+internal val objectMapper = jacksonObjectMapper()
 
 suspend fun StdoutJSONEmitter(receiver: ReceiveChannel<JMXResult>,
-                              idAttributes: List<IdAttribute>) = runBlocking {
+                              idAttributes: List<IdAttribute>) = coroutineScope {
     var i = IntegrationV3()
     for (r in receiver) {
         val ms = i.entity(r.query.domain, idAttributes).addMetrics(r.query.eventType)
@@ -23,6 +27,6 @@ suspend fun StdoutJSONEmitter(receiver: ReceiveChannel<JMXResult>,
             ms["key:$key"] = value.trim('"', ' ')
         }
     }
-    ObjectMapper().writeValue(System.out, i)
+    println(objectMapper.writeValueAsString(i))
 }
 
