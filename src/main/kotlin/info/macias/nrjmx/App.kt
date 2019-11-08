@@ -62,13 +62,13 @@ class App(private val config: InputConfig) {
 
         log.debug("registering metrics")
         val metrics = Metrics()
-        collects.forEach {
-            it.beans!!.forEach { bean ->
-                metrics.define(bean.query!!, BeanMetricsDefinition().apply {
-                    bean.attributesMap().forEach { name, metric ->
-                        register(name, metric)
-                    }
-                })
+        for (collect in collects) {
+            for (bean in collect.beans!!) {
+                var bmd = BeanMetricsDefinition()
+                for ((name, metric) in bean.attributesMap()) {
+                    bmd.register(name, metric)
+                }
+                metrics.define(bean.query!!, bmd)
             }
         }
 
@@ -77,7 +77,7 @@ class App(private val config: InputConfig) {
         }, 0, config.intervalSeconds * 1000)
     }
 
-    private fun CoroutineScope.fetchLoop(collects: List<Collect>, metrics: Metrics) = runBlocking {
+    private fun fetchLoop(collects: List<Collect>, metrics: Metrics) = runBlocking {
         log.debug("starting fetch-collect cycle")
 
         val (jmxResults, timeout) = queryAllDomains(collects)

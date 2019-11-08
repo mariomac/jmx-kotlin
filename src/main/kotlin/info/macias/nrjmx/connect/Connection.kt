@@ -45,6 +45,7 @@ class JMXConnectionFactory(
     }
 
     override fun get(): MBeanServerConnection {
+        // todo: when connection is closed, this throws an exception
         return connector.mBeanServerConnection
     }
 
